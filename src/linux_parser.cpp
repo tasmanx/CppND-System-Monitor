@@ -6,8 +6,6 @@
 
 #include "linux_parser.h"
 
-#include <iostream>
-
 using std::stof;
 using std::string;
 using std::to_string;
@@ -124,8 +122,20 @@ long LinuxParser::ActiveJiffies() { return 0; }
 // TODO: Read and return the number of idle jiffies for the system
 long LinuxParser::IdleJiffies() { return 0; }
 
-// TODO: Read and return CPU utilization
-vector<string> LinuxParser::CpuUtilization() { return {}; }
+vector<string> LinuxParser::CpuUtilization() {
+  vector<string> cpu_time;
+  string value;
+  string line;
+  std::ifstream stream(kProcDirectory + kStatFilename);
+  if (stream.is_open()) {
+    std::getline(stream, line);
+    std::istringstream linestream(line);
+    while (linestream >> value)
+      cpu_time.push_back(value);
+    cpu_time.erase(cpu_time.begin());  // Delete 'cpu' from list
+  }
+  return cpu_time;
+}
 
 int LinuxParser::TotalProcesses() {
   int value;
