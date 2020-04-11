@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <cmath>
+#include <unistd.h>
 
 #include "linux_parser.h"
 
@@ -228,9 +229,12 @@ string LinuxParser::User(int pid) {
   return user;
 }
 
-// TODO: Read and return the uptime of a process
-// REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::UpTime(int pid[[maybe_unused]]) { return 0; }
+// Return process UpTime in seconds
+long LinuxParser::UpTime(int pid) {
+  vector<string> proc_stat_file = ProcStatFile(pid);
+  long start_time = std::stol(proc_stat_file[21]);
+  return start_time / sysconf(_SC_CLK_TCK);
+}
 
 vector<string> LinuxParser::ProcStatFile(int pid) {
   vector<string> proc_stat_file;
