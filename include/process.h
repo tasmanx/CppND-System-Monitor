@@ -24,6 +24,7 @@ class Process {
    std::string user_ = {};
    std::string command_ = {};
    Processor cpu_ = {};
+   float cpu_utilization_ = {};
 };
 
 #endif
