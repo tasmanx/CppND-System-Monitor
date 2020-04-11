@@ -26,13 +26,8 @@ float Processor::Utilization(int pid) {
   long cutime = std::stol(proc_stat_file[15]);
   long cstime = std::stol(proc_stat_file[16]);
   long starttime = std::stol(proc_stat_file[21]);
-
   long total_time = utime + stime;
   total_time = total_time + cutime + cstime;
-  float seconds = LinuxParser::UpTime(pid) - (starttime / sysconf(_SC_CLK_TCK));
-
-  if (seconds > 0)
-    return (total_time / sysconf(_SC_CLK_TCK)) / seconds;
-  else
-    return 0;
+  float seconds = LinuxParser::UpTime() - (starttime / sysconf(_SC_CLK_TCK));
+  return (total_time / sysconf(_SC_CLK_TCK)) / seconds;
 }
