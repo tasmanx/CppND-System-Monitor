@@ -16,14 +16,14 @@ int Process::Pid() { return pid_; }
 // TODO: Return this process's CPU utilization
 float Process::CpuUtilization() { return 0; }
 
-// TODO: Return the command that generated this process
-string Process::Command() { return string(); }
-
-
-string Process::Ram() { 
-  // Return ram in MB
-  return std::to_string(LinuxParser::Ram(pid_) / 1024);
+string Process::Command() { 
+  if (command_.empty())
+    command_ = LinuxParser::Command(pid_);
+  return command_; 
 }
+
+// Return ram in MB
+string Process::Ram() { return std::to_string(LinuxParser::Ram(pid_) / 1024); }
 
 string Process::User() { 
   if(user_.empty())
