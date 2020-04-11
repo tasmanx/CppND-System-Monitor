@@ -4,6 +4,7 @@
 class Processor {
  public:
   float Utilization();
+  float Utilization(int pid);
 };
 
 #endif
