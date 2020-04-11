@@ -30,7 +30,7 @@ string Process::User() {
   return user_;
 }
 
-long int Process::UpTime() { return LinuxParser::UpTime(); }
+long int Process::UpTime() { return LinuxParser::UpTime(pid_); }
 
 bool Process::operator<(Process const& a) const { 
   return pid_ > a.pid_;
