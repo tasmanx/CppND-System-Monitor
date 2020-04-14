@@ -220,7 +220,7 @@ string LinuxParser::User(int pid) {
 long LinuxParser::UpTime(int pid) {
   vector<string> proc_stat_file = ProcStatFile(pid);
   long start_time = std::stol(proc_stat_file[21]);
-  return start_time / sysconf(_SC_CLK_TCK);
+  return UpTime() - (start_time / sysconf(_SC_CLK_TCK));
 }
 
 vector<string> LinuxParser::ProcStatFile(int pid) {
