@@ -11,6 +11,14 @@ using std::string;
 using std::to_string;
 using std::vector;
 
+Process::Process(int pid) : pid_(pid) {
+  User();                      
+  Command();                   
+  CpuUtilization();                  
+  Ram();                       
+  UpTime();   
+}
+
 int Process::Pid() { return pid_; }
 
 float Process::CpuUtilization() { 
@@ -24,7 +32,10 @@ string Process::Command() {
 }
 
 // Return ram in MB
-string Process::Ram() { return std::to_string(LinuxParser::Ram(pid_) / 1024); }
+string Process::Ram() { 
+  ram_ = std::to_string(LinuxParser::Ram(pid_) / 1024);
+  return ram_;
+}
 
 string Process::User() { 
   if(user_.empty())
@@ -32,7 +43,10 @@ string Process::User() {
   return user_;
 }
 
-long int Process::UpTime() { return LinuxParser::UpTime(pid_); }
+long int Process::UpTime() { 
+  up_time_ = LinuxParser::UpTime(pid_);
+  return up_time_; 
+}
 
 bool Process::operator<(Process const& a) const { 
   return cpu_utilization_ > a.cpu_utilization_;

@@ -10,7 +10,7 @@ It contains relevant attributes as shown below
 */
 class Process {
  public:
-  Process(int pid) : pid_(pid) {}
+  Process(int pid);
   int Pid();                               
   std::string User();                      
   std::string Command();                   
@@ -23,8 +23,10 @@ class Process {
    int pid_ = {}; 
    std::string user_ = {};
    std::string command_ = {};
-   Processor cpu_ = {};
    float cpu_utilization_ = {};
+   std::string ram_ = {};
+   long int up_time_ = {};
+   Processor cpu_ = {};
 };
 
 #endif
