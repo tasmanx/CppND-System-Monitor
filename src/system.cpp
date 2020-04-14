@@ -18,9 +18,10 @@ Processor& System::Cpu() { return cpu_; }
 
 vector<Process>& System::Processes() {
   vector<int> pids = LinuxParser::Pids();
-  if (processes_.empty())
-    for (int pid : pids)
-      processes_.emplace_back(pid);
+  if (!processes_.empty())
+    processes_.clear();
+  for (int pid : pids)
+    processes_.emplace_back(pid);
   std ::sort(processes_.begin(), processes_.end(), [](Process p1 , Process p2) { return p1 < p2; });
   return processes_; 
 }
