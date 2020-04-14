@@ -23,7 +23,8 @@ int Process::Pid() { return pid_; }
 
 float Process::CpuUtilization() { 
   cpu_utilization_ = cpu_.Utilization(pid_);
-  return cpu_utilization_; }
+  return cpu_utilization_; 
+}
 
 string Process::Command() { 
   if (command_.empty())
